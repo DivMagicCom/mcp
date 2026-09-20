@@ -7,7 +7,9 @@ DivMagic opens the page in a real browser and converts what it *renders*. That i
 ```
 You:   copy the pricing table from stripe.com/pricing as JSX with tailwind
 Agent: → copy_component_from_url
-       ← <section className="flex flex-col gap-8 …">…</section>
+       ← Copied stripe.com → JSX + Tailwind. 48 KB.
+         Studio: https://divmagic.com/studio/c/…
+         Download: https://api.divmagic.com/v1/mcp/dl/…
 ```
 
 ## Get a key
@@ -24,10 +26,13 @@ Keys look like `dvmcp_…`, and are shown once. Losing a key means issuing a new
 npx divmagic-mcp
 ```
 
-It asks for your key, checks it against the server before touching anything, shows which agents it found, and writes only the ones you pick.
+It asks for your key (Enter skips), checks it against the server before touching anything, shows which agents it found, and writes only the ones you pick. Skipping the key still installs: the first copy tells the agent where to sign up.
 
 ```
-Checking the key… works.  (copy_component_from_url, get_component_result)
+Create a key at https://divmagic.com/dashboard — shown once. Or skip and add it later.
+
+Paste your key (Enter to skip):
+
 
 Found 3 on this machine. Which should get DivMagic?
   1. Claude Code
@@ -112,7 +117,7 @@ Polling costs nothing.
 
 ## How it behaves
 
-**Large results.** Over 256 KB is not returned inline. You get the size, a download link valid for an hour, and the option to read by `offset`.
+**Links, not markup.** Every copy comes back as a Studio page and a download on `api.divmagic.com`. The file is not dumped into chat, and the download is not an S3 URL.
 
 **Caching.** A rendered copy is reused for 24 hours. Pass `refresh: true` when a page has changed.
 
@@ -122,7 +127,7 @@ Polling costs nothing.
 
 ## Troubleshooting
 
-**`401` "Send your DivMagic MCP key"** — the `Authorization` header is not reaching us.
+**"Missing key. Sign up here…"** — no key in the agent config. Create one at [divmagic.com/dashboard](https://divmagic.com/dashboard) and rerun `npx divmagic-mcp --key dvmcp_YOUR_KEY`.
 
 **`401` "This MCP key is not valid"** — the key was revoked. Create another in the dashboard.
 

@@ -1,6 +1,6 @@
 {
   "name": "divmagic-mcp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Install the DivMagic MCP server into the agents you already use",
   "bin": {
     "divmagic-mcp": "bin/divmagic-mcp.js"
