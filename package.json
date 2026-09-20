@@ -1,0 +1,34 @@
+{
+  "name": "divmagic-mcp",
+  "version": "1.0.0",
+  "description": "Install the DivMagic MCP server into the agents you already use",
+  "bin": {
+    "divmagic-mcp": "bin/divmagic-mcp.js"
+  },
+  "type": "module",
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "modelcontextprotocol",
+    "divmagic"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DivMagicCom/mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DivMagicCom/mcp/issues"
+  },
+  "homepage": "https://divmagic.com",
+  "dependencies": {
+    "add-mcp": "^2.4.0"
+  }
+}

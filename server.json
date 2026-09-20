@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.DivMagicCom/mcp",
+  "title": "DivMagic",
+  "description": "Copy any component from a live web page as clean HTML or JSX. The page is rendered in a real browser, so the output carries the computed styles a plain fetch cannot see.",
+  "version": "1.0.0",
+  "websiteUrl": "https://divmagic.com",
+  "repository": {
+    "url": "https://github.com/DivMagicCom/mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.divmagic.com/v1/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer <your DivMagic MCP key>, created at https://divmagic.com/dashboard",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
