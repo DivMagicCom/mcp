@@ -5,9 +5,9 @@ Copy any component from a live web page as clean, self-contained HTML or JSX —
 DivMagic opens the page in a real browser and converts what it *renders*. That is the difference from fetching HTML: the output carries the computed styles, the resolved layout, and the markup the page actually produced, not the template it shipped.
 
 ```
-You:   copy the pricing table from stripe.com/pricing as JSX with tailwind
+You:   copy the infobox from en.wikipedia.org/wiki/HTML as JSX with tailwind
 Agent: → copy_component_from_url
-       ← Copied stripe.com → JSX + Tailwind. 48 KB.
+       ← Copied en.wikipedia.org → JSX + Tailwind. 48 KB.
          Studio: https://divmagic.com/studio/c/…
          Download: https://api.divmagic.com/v1/mcp/dl/…
 ```
@@ -98,7 +98,7 @@ claude mcp add --transport http divmagic https://api.divmagic.com/v1/mcp \
 
 | Parameter | Type | Default | |
 |---|---|---|---|
-| `url` | string | — | The page to copy. A bare host works: `stripe.com/pricing`. |
+| `url` | string | — | The page to copy. A bare host works: `en.wikipedia.org/wiki/HTML`. |
 | `componentFormat` | `html` \| `jsx` | `html` | Output language. |
 | `styleFormat` | `inline` \| `tailwind` \| `local` \| `external` | `tailwind` | How styling is emitted. |
 | `refresh` | boolean | `false` | Render the page again instead of reusing a recent copy. Costs a credit. |

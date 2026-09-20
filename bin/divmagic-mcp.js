@@ -131,7 +131,7 @@ async function main() {
     }
 
     console.log(`\n${bold('Restart the agents you just changed')} — none of them reread their config while running.`);
-    console.log(`Then ask one to ${dim('"copy the pricing table from stripe.com/pricing as JSX"')}.\n`);
+    console.log(`Then ask one to ${dim('"copy the infobox from en.wikipedia.org/wiki/HTML as JSX"')}.\n`);
     if (!key) {
         console.log(dim(`No key in the config. First copy replies with a signup link at ${DASHBOARD}.\n`));
     }
