@@ -30,7 +30,7 @@ ${bold('divmagic-mcp')} — install DivMagic into your coding agents
   ${dim('$')} npx divmagic-mcp
 
 Options
-  --key <key>        Your DivMagic MCP key. Asked for if not given.
+  --key <key>        Your DivMagic MCP key. Optional. Asked for if not given; Enter skips.
   -a, --agent <id>   Install only to this agent. Repeatable.
   --all              Install to every supported agent, not only those found.
   -y, --yes          Take the detected agents without asking.
@@ -57,26 +57,26 @@ async function main() {
     console.log(`\n${bold('DivMagic')} — copy any component from a live web page, from inside your agent.\n`);
 
     let key = args.key;
-    if (!key) {
-        console.log(`Create a key at ${bold(DASHBOARD)} — it is shown once, so copy it before leaving the page.\n`);
-        key = await askSecret('Paste your key: ');
+    if (!key && !args.yes) {
+        console.log(`Create a key at ${bold(DASHBOARD)} — shown once. Or skip and add it later.\n`);
+        key = await askSecret('Paste your key (Enter to skip): ');
     }
-    if (!key) {
-        console.log(red('\nNo key given. Nothing was changed.'));
-        process.exitCode = 1;
-        return;
-    }
+    key = (key || '').trim();
 
-    process.stdout.write('\nChecking the key… ');
-    const check = await verifyKey(endpoint, key);
-    if (!check.ok) {
-        console.log(red('no.'));
-        console.log(`\n${check.reason}`);
-        console.log(dim('Nothing was changed.'));
-        process.exitCode = 1;
-        return;
+    if (key) {
+        process.stdout.write('\nChecking the key… ');
+        const check = await verifyKey(endpoint, key);
+        if (!check.ok) {
+            console.log(red('no.'));
+            console.log(`\n${check.reason}`);
+            console.log(dim('Nothing was changed.'));
+            process.exitCode = 1;
+            return;
+        }
+        console.log(green('works.') + dim(`  (${check.tools.join(', ')})`));
+    } else {
+        console.log(dim('\nNo key yet. First copy will send you to ' + DASHBOARD + ' to get one.\n'));
     }
-    console.log(green('works.') + dim(`  (${check.tools.join(', ')})`));
 
     const detected = await detectGlobalAgents();
     let chosen;
@@ -113,7 +113,8 @@ async function main() {
     }
 
     console.log('');
-    const serverConfig = { type: 'http', url: endpoint, headers: { Authorization: `Bearer ${key}` } };
+    const serverConfig = { type: 'http', url: endpoint };
+    if (key) serverConfig.headers = { Authorization: `Bearer ${key}` };
     let failures = 0;
 
     for (const agentType of chosen) {
@@ -130,7 +131,10 @@ async function main() {
     }
 
     console.log(`\n${bold('Restart the agents you just changed')} — none of them reread their config while running.`);
-    console.log(`Then ask one to ${dim('"copy the pricing table from stripe.com/pricing as JSX"')}.\n`);
+    console.log(`Then ask one to ${dim('"copy the infobox from en.wikipedia.org/wiki/HTML as JSX"')}.\n`);
+    if (!key) {
+        console.log(dim(`No key in the config. First copy replies with a signup link at ${DASHBOARD}.\n`));
+    }
     console.log(dim(`Server name: ${SERVER_NAME}    Endpoint: ${endpoint}`));
 
     if (failures > 0) process.exitCode = 1;
